@@ -38,7 +38,7 @@ class ColorFormatter extends FormatterBase {
         // the associated label, otherwise just display the raw value.
         $output = isset($options[$value]) ? $options[$value] : $value;
 
-        if (strpos($output, '/') !== FALSE) {
+        if (str_contains($output, '/')) {
           // Get the first part of the label.
           [$output] = explode('/', $output);
         }

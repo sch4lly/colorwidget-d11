@@ -35,6 +35,17 @@ class ColorWidget extends OptionsWidgetBase {
       '#default_value' => $selected ? reset($selected) : NULL,
     ];
 
+    foreach ($element['#options'] as $key => $label) {
+      $css_color = 'transparent';
+      if (str_contains($label, '/')) {
+        [$label, $css_color] = explode('/', $label);
+      }
+      $element['#colors'][$key] = [
+        'label' => $label,
+        'css_color' => $css_color,
+      ];
+    }
+
     return $element;
   }
 

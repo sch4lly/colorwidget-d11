@@ -44,26 +44,29 @@ class ColorWidget extends FormElement {
       '#prefix' => '<div class="colorwidget">',
       '#suffix' => '</div>',
       '#type' => 'radios',
+      '#options' => [],
       '#required' => $element['#required'],
       '#default_value' => $element['#default_value'],
-      '#title' => $element['#title']
+      '#title' => $element['#title'],
     ];
-    if (empty($element['#options'])) {
-      $element['#options'] = [];
+    if (empty($element['#colors'])) {
+      return $element;
     }
 
-    foreach ($element['#options'] as $key => $title) {
-      if (strpos($title, '/') !== FALSE) {
-        [$title, $color] = explode('/', $title);
-        $element['colorwidget']['#options'][$key] = $title;
-        $element['colorwidget'][$key]['#attributes']['class'][] = "color-name--{$key}";
+    foreach ($element['#colors'] as $key => $details) {
+      $details['label'] = $details['label'] ?? '';
+      $details['css_color'] = $details['css_color'] ?? '';
 
-        if (substr($color, 1) != '#') {
-          $element['colorwidget'][$key]['#attributes']['class'][] = "color-css--{$color}";
+      $element['colorwidget']['#options'][$key] = $details['label'];
+      $element['colorwidget'][$key]['#attributes']['class'][] = "color-name--{$key}";
+
+      if (!empty($details['css_color'])) {
+        if (substr($details['css_color'], 1) != '#') {
+          $element['colorwidget'][$key]['#attributes']['class'][] = "color-css--{$details['css_color']}";
         }
 
-        if ($color != 'transparent') {
-          $element['colorwidget'][$key]['#attributes']['style'] = "background:{$color};";
+        if ($details['css_color'] != 'transparent') {
+          $element['colorwidget'][$key]['#attributes']['style'] = "background:{$details['css_color']};";
         }
       }
     }
