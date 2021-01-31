@@ -30,27 +30,11 @@ class ColorWidget extends OptionsWidgetBase {
     $selected = $this->getSelectedOptions($items);
 
     $element += [
-      '#type' => 'radios',
+      '#type' => 'colorwidget',
       '#options' => $options,
       '#default_value' => $selected ? reset($selected) : NULL,
     ];
 
-    foreach ($element['#options'] as $key => $title) {
-      if (strpos($title, '/') !== FALSE) {
-        [$title, $color] = explode('/', $title);
-        $this->sanitizeLabel($title);
-        $element['#options'][$key] = $title;
-        $element[$key]['#attributes']['class'][] = "color-name--{$key}";
-        if (substr($color, 1) != '#') {
-          $element[$key]['#attributes']['class'][] = "color-css--{$color}";
-        }
-        if ($color != 'transparent') {
-          $element[$key]['#attributes']['style'] = "background:{$color};";
-        }
-      }
-    }
-
-    $element['#attached']['library'][] = 'colorwidget/element.colorwidget';
     return $element;
   }
 
