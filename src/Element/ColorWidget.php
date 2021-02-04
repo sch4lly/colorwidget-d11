@@ -20,6 +20,7 @@ class ColorWidget extends FormElement {
     return [
       '#process' => [
         [$class, 'processFormElement'],
+        [$class, 'processGroup'],
       ],
       '#pre_render' => [
         [$class, 'preRenderGroup'],
