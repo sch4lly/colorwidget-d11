@@ -67,7 +67,7 @@ class ColorWidget extends FormElement {
         }
 
         if ($details['css_color'] != 'transparent') {
-          $element['colorwidget'][$key]['#attributes']['style'] = "background:{$details['css_color']};";
+          $element['colorwidget'][$key]['#attributes']['style'] = "background:{$details['css_color']} !important;";
         }
       }
     }
