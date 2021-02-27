@@ -57,6 +57,7 @@ class ColorWidget extends FormElement {
     foreach ($element['#colors'] as $key => $details) {
       $details['label'] = $details['label'] ?? '';
       $details['css_color'] = $details['css_color'] ?? '';
+      $details['css_class'] = $details['css_class'] ?? '';
 
       $element['colorwidget']['#options'][$key] = $details['label'];
       $element['colorwidget'][$key]['#attributes']['class'][] = "color-name--{$key}";
@@ -69,6 +70,10 @@ class ColorWidget extends FormElement {
         if ($details['css_color'] != 'transparent') {
           $element['colorwidget'][$key]['#attributes']['style'] = "background:{$details['css_color']} !important;";
         }
+      }
+
+      if (!empty($details['css_class'])) {
+        $element['colorwidget'][$key]['#attributes']['class'][] = "{$details['css_class']}";
       }
     }
 
